@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/css/traffic.css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<h2>Index</h2>
+<div class="container">
+    <div class="traffic">
+        <div id="red" class="lantern"></div>
+        <div id="yellow" class="lantern"></div>
+        <div id="green" class="lantern"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        startTrafficLight();
+    });
+
+    function startTrafficLight(color) {
+        $.ajax({
+            url: "/TrafficLights/lights",
+            type: "POST",
+            data: { 'color': color },
+            con: "application/ json; charset = utf - 8",
+            traditional: true,
+            dataType: "json",
+            success: function (data) {
+                if (data.color[0] != null && data.time != null) {
+                    $("#" + data.color[0]).addClass(data.color[0])
+                        ;
+                    if (data.color[1] != null) {
+                        $("#" + data.color[1]).addClass(data.color[1]);
+                    }
+
+                    setTimeout(function () {
+                        var currentColorKey = data.color.join();
+                        startTrafficLight(currentColorKey);
+                        $("#" + data.color[0]).removeClass(data.color[0])
+                            ;
+                        if (data.color[1] != null) {
+                            $("#" + data.color[1]).removeClass(data.color[1]);
+                        }
+                    }, parseInt(data.time) * 1000);
+
+
+                } else {
+                    console.log("Error occurs on the Database level!")
+                }
+            },
+            error: function (ex) {
+                console.log("An error has occured!!!");
+            }
+        });
+    }
+</script>
+

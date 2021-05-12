@@ -1,0 +1,26 @@
+﻿.traffic {
+    width: 100px;
+    height: auto;
+    background: #888;
+    border-color: #666;
+    border-width: 2px;
+    border-style: solid;
+}
+.lantern {  
+    margin-left:10%;
+    margin-top:2px;
+    height: 80px;
+    width: 80px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-flex;
+}
+.red {
+    background: #FF0000;
+}
+.green {
+    background: #1FEA00;
+}
+.yellow {
+    background: #FFFF00;
+}
